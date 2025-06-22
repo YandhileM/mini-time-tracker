@@ -6,7 +6,20 @@ interface TimeEntryFormProps {
 
 export default function TimeEntryForm({ onAdd }: TimeEntryFormProps) {
   const [taskName, setTaskName] = useState('');
-  const [hours, setHours] = useState(0);
+  const [timeInput, setTimeInput] = useState('');
+
+  const parseTimeInput = (input: string): number => {
+    if (input.includes(':')) {
+      const [hoursStr, minutesStr] = input.split(':');
+      const hours = parseInt(hoursStr) || 0;
+      const minutes = parseInt(minutesStr) || 0;
+      return hours + (minutes / 60);
+    }
+    
+
+    const decimalHours = parseFloat(input);
+    return isNaN(decimalHours) ? 0 : decimalHours;
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -14,9 +27,16 @@ export default function TimeEntryForm({ onAdd }: TimeEntryFormProps) {
       alert("Please enter a task name!");
       return;
     }
-    onAdd(taskName, hours);
+    
+    const totalHours = parseTimeInput(timeInput);
+    if (totalHours <= 0) {
+      alert("Please enter a valid time!");
+      return;
+    }
+    
+    onAdd(taskName, totalHours);
     setTaskName('');
-    setHours(0);
+    setTimeInput('');
   };
 
   return (
@@ -28,12 +48,10 @@ export default function TimeEntryForm({ onAdd }: TimeEntryFormProps) {
         placeholder="Task name"
       />
       <input
-        type="number"
-        value={hours}
-        onChange={(e) => setHours(Number(e.target.value))}
-        placeholder="Hours"
-        min="0"
-        step="0.25"
+        type="text"
+        value={timeInput}
+        onChange={(e) => setTimeInput(e.target.value)}
+        placeholder="Time (e.g., 1:30 or 1.5)"
       />
       <button type="submit">Add Entry</button>
     </form>
