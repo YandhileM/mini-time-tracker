@@ -4,6 +4,7 @@ import { TimeEntry } from "./types/types";
 import TimeEntryForm from "./components/TimeEntryForm";
 import TotalHours from "./components/TotalHours";
 import TimeEntryList from "./components/TimeEntryList";
+import Timer from "./components/Timer";
 
 function App() {
   const [entries, setEntries] = useState<TimeEntry[]>([]);
@@ -19,6 +20,7 @@ function App() {
   return (
     <div className="app">
       <h1>Time Tracker</h1>
+      <Timer onAdd={addEntry} />
       <TimeEntryForm onAdd={addEntry} />
       <TotalHours entries={entries} />
       <TimeEntryList entries={entries} onDelete={deleteEntry} />
