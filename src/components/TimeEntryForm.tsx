@@ -5,14 +5,17 @@ interface TimeEntryFormProps {
 }
 
 export default function TimeEntryForm({ onAdd }: TimeEntryFormProps) {
-  const [taskName, setTaskName] = useState("");
+  const [taskName, setTaskName] = useState('');
   const [hours, setHours] = useState(0);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!taskName.trim()) return;
+    if (!taskName.trim()) {
+      alert("Please enter a task name!");
+      return;
+    }
     onAdd(taskName, hours);
-    setTaskName("");
+    setTaskName('');
     setHours(0);
   };
 
@@ -23,7 +26,6 @@ export default function TimeEntryForm({ onAdd }: TimeEntryFormProps) {
         value={taskName}
         onChange={(e) => setTaskName(e.target.value)}
         placeholder="Task name"
-        required
       />
       <input
         type="number"
@@ -32,7 +34,6 @@ export default function TimeEntryForm({ onAdd }: TimeEntryFormProps) {
         placeholder="Hours"
         min="0"
         step="0.25"
-        required
       />
       <button type="submit">Add Entry</button>
     </form>
