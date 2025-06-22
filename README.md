@@ -1,46 +1,146 @@
-# Getting Started with Create React App
+# Mini Time Tracker
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple web application for tracking time spent on tasks. Built with React,and TypeScript.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+### Core Features
+- ✅ **Add Time Entries**: Create entries with task name and hours worked
+- ✅ **View Time Entries**: Display all time entries in a list
+- ✅ **Total Hours**: Calculate and display total hours worked
+- ✅ **Delete Entries**: Remove time entries with one click
 
-### `npm start`
+### Bonus Features
+- ✅ **Live Timer**: Start/stop timer to track active work time
+- ✅ **Input Validation**: Validation with error messages
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Stack
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- **Frontend**: React  with TypeScript
+- **Styling**: CSS
+- **State Management**: React useState (prop drilling)
+- **Package Manager**: npm
 
-### `npm test`
+## Getting Started
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Prerequisites
+- Node
+- npm
 
-### `npm run build`
+### Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. **Clone the repository**
+   ```bash
+   git clone git@github.com:YandhileM/mini-time-tracker.git
+   cd mini-time-tracker
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. **Start the development server**
+   ```bash
+   npm run start
+   ```
 
-### `npm run eject`
+4. **Open your browser**
+   Navigate to `http://localhost:3000` (or the port shown in your terminal)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Build for Production
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+npm run build
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+The built files will be in the `dist/` directory.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Project Structure
 
-## Learn More
+```
+src/
+├── components/
+│   ├── TimeEntryForm.tsx    # Form to manually add time entries
+│   ├── TimeEntryList.tsx    # Display list of all entries
+│   ├── TotalHours.tsx       # Show total hours worked
+│   └── Timer.tsx            # Live timer component
+├── types/
+│   └── types.ts             # TypeScript interfaces
+├── App.tsx                  # Main app component
+├── index.tsx                 # App entry point
+└── styles.css               # Global styles
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Usage
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Adding Time Entries
+1. **Manual Entry**: Use the form to enter task name and hours
+2. **Timer Method**: 
+   - Enter task name
+   - Click "Start" to begin timing
+   - Click "Stop" when finished
+   - Click "Save Entry" to log the time
+
+### Input Validation
+The app includes validation:
+- Task names are required
+- Hours must be positive numbers
+- Timer requires task name before starting
+
+## Design Decisions & Trade-offs
+
+### Choice: Prop Drilling
+**Decision**: Used simple prop drilling instead of Context API or external state management
+
+**Reasoning**:
+- App is small with shallow component tree
+- Keeps code simple and easy to understand
+
+**Trade-off**: Would need refactoring if app grows significantly
+
+### Validation Strategy
+**Decision**: Validate on blur and form submission
+
+**Reasoning**:
+- Less intrusive than validating on every keystroke
+- Provides timely feedback without being annoying
+
+## What I'd Improve With More Time
+
+### Features
+- **Edit Entries**: Allow users to modify existing entries
+- **Categories/Tags**: Organize tasks by project or category
+- **Time Ranges**: Track start/end times instead of just duration
+- **Data Persistence**: Save data to localStorage or backend
+- **Export Data**: Export entries to CSV or PDF
+- **Time Goals**: Set daily/weekly time goals with progress tracking
+
+### Technical Improvements
+- **Better Styling**: More polished UI
+- **Testing**: Unit tests for components and validation logic
+- **Error Boundaries**: Handle unexpected React errors gracefully
+- **Performance**: Memoization for large lists, virtual scrolling
+- **Backend Integration**: REST API for data persistence
+- **PWA Features**: Offline support, push notifications
+
+### UX Enhancements
+- **Keyboard Shortcuts**: Quick actions without mouse
+- **Bulk Operations**: Delete multiple entries at once
+- **Search/Filter**: Find specific entries quickly
+- **Data Visualization**: Charts showing time distribution
+- **Time Formatting Options**: Different display formats (decimal vs HH:MM)
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+---
