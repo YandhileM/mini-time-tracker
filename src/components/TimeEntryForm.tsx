@@ -9,14 +9,25 @@ export default function TimeEntryForm({ onAdd }: TimeEntryFormProps) {
   const [timeInput, setTimeInput] = useState('');
 
   const parseTimeInput = (input: string): number => {
+    // Handle HH:MM:SS format
     if (input.includes(':')) {
-      const [hoursStr, minutesStr] = input.split(':');
-      const hours = parseInt(hoursStr) || 0;
-      const minutes = parseInt(minutesStr) || 0;
-      return hours + (minutes / 60);
+      const timeParts = input.split(':');
+      
+      if (timeParts.length === 3) {
+        // HH:MM:SS format
+        const hours = parseInt(timeParts[0]) || 0;
+        const minutes = parseInt(timeParts[1]) || 0;
+        const seconds = parseInt(timeParts[2]) || 0;
+        return hours + (minutes / 60) + (seconds / 3600);
+      } else if (timeParts.length === 2) {
+        // HH:MM format
+        const hours = parseInt(timeParts[0]) || 0;
+        const minutes = parseInt(timeParts[1]) || 0;
+        return hours + (minutes / 60);
+      }
     }
     
-
+    // Handle decimal hours (e.g., "1.5" for 1 hour 30 minutes)
     const decimalHours = parseFloat(input);
     return isNaN(decimalHours) ? 0 : decimalHours;
   };
@@ -51,7 +62,7 @@ export default function TimeEntryForm({ onAdd }: TimeEntryFormProps) {
         type="text"
         value={timeInput}
         onChange={(e) => setTimeInput(e.target.value)}
-        placeholder="Time (e.g., 1:30 or 1.5)"
+        placeholder="Time (HH:MM:SS, or 1.5)"
       />
       <button type="submit">Add Entry</button>
     </form>
